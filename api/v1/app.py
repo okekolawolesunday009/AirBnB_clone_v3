@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 from api.v1.views import app_views
+'''Contains a Flask web application API.
+'''
 from flask import Flask
 from models import storage
 import os
