@@ -16,7 +16,6 @@ from models.review import Review
 #"""returns count of classes!"""
  #   classes = [Amenity, City, Place, Review, State, User]
   #  names = ["amenities", "cities", "places", "reviews", "states", "users"]
-#
  #   new_objs = {}
   #  for i in range(len(classes)):
    #     new_objs[names[i]] = storage.count(classes[i])
