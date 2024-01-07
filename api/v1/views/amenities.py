@@ -14,13 +14,15 @@ def show_amenity():
     return jsonify(amenities_list)
 
 
-@app_views.route('amenities/<amenity_id>',  methods=['GET'], strict_slashes=False)
+@app_views.route(
+        'amenities/<amenity_id>',
+        methods=['GET'], strict_slashes=False)
 def Amenities_id(amenity_id):
     """returns count of classes!"""
     Amenities = storage.all(Amenity)
     for _, amenity_obj in Amenities.items():
-         if amenity_obj.id == amenity_id:
-             return jsonify(amenity_obj.to_dict())
+        if amenity_obj.id == amenity_id:
+            return jsonify(amenity_obj.to_dict())
     return abort(404)
 
 
@@ -42,7 +44,9 @@ def create_amenity():
     return jsonify(new_amenity.to_dict()), 201
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route(
+        '/amenities/<amenity_id>',
+        methods=['DELETE'], strict_slashes=False)
 def delete_amenity(amenity_id):
     """Deletes a State object by ID."""
     amenties_to_delete = storage.get(Amenity, amenity_id)
@@ -56,7 +60,10 @@ def delete_amenity(amenity_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.route('amenities/<amenity_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route(
+        'amenities/<amenity_id>',
+        methods=['PUT'],
+        strict_slashes=False)
 def update_amenity(amenity_id):
     """
     Updates a amenity
@@ -77,5 +84,3 @@ def update_amenity(amenity_id):
             setattr(amenity, key, value)
     storage.save()
     return make_response(jsonify(amenity.to_dict()), 200)
-
-
