@@ -45,21 +45,22 @@ def create_state():
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
     """Deletes a State object by ID."""
-    states = storage.all(State)
-    for _, state_obj in states.items():
-         if state_obj.id == state_id:
-             # If the state exists, delete it
-             storage.delete(state_obj)
-             storage.save()
-             return jsonify({}), 200
-    # If the state does not exist, return a 404 error
-    abort(404)
+    state = storage.get(State, state_id)
+
+    if not state:
+        abort(404)
+
+    storage.delete(state)
+    storage.save()
+
+    return make_response(jsonify({}), 200)
+
 
 
 @app_views.route('/states/<state_id>', methods=['UPDATE'], strict_slashes=False)
 def Update_state(state_id):
     """UPDATE a State object by ID."""
-     data = request.get_json()
+    data = request.get_json()
 
     if not data:
         return jsonify({"error": "Not a JSON"}), 400
