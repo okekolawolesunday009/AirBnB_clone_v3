@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """retrieves the ojects in states"""
 from models import storage
-from models.city import City
-from models.state import State
 from models.user import User
 from api.v1.views import app_views
 from flask import jsonify, request, abort, make_response
@@ -40,7 +38,7 @@ def delete_user_id(user_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.route('/user/<user_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def update_user_id(user_id):
     """
     Updates a User base on user_id
@@ -72,7 +70,7 @@ def users_create():
 
     if 'email' not in data:
         return jsonify({"error": "Missing email"}), 400
-    if 'password' not in data:
+    elif 'password' not in data:
         return jsonify({"error": "Missing password"}), 400
 
     new_user = User(**data)
