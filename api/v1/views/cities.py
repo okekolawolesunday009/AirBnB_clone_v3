@@ -14,7 +14,7 @@ def show_states_city(state_id):
     for _, state_obj in states.items():
         if state_obj.id == state_id:
             cities = [city.to_dict() for city in state_obj.cities]
-            return jsonify(cities)
+            return jsonify(cities)OA
     return abort(404)
 
 
@@ -30,7 +30,7 @@ def cities_id(city_id):
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
 def create_city(state_id):
-    """Creates a new State object."""
+    """Creates a new City object."""
     data = request.get_json()
     if not data:
         return jsonify({"error": "Not a JSON"}), 400
@@ -51,7 +51,7 @@ def create_city(state_id):
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
 def delete_city(city_id):
-    """Deletes a State object by ID."""
+    """Deletes a City object by ID."""
     city = storage.get(City, city_id)
     print(city)
 
@@ -68,7 +68,7 @@ def delete_city(city_id):
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
     """
-    Updates a State
+    Updates a City
     """
     city = storage.get(City, city_id)
 
