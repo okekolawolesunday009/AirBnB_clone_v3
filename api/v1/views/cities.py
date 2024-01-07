@@ -7,7 +7,9 @@ from api.v1.views import app_views
 from flask import jsonify, request, abort, make_response
 
 
-@app_views.route('/states/<state_id>/cities',  methods=['GET'], strict_slashes=False)
+@app_views.route(
+        '/states/<state_id>/cities',
+        `methods=['GET'], strict_slashes=False)
 def show_states_city(state_id):
     """returns count of classes!"""
     states = storage.all(State)
@@ -23,12 +25,14 @@ def cities_id(city_id):
     """returns count of classes!"""
     cities = storage.all(City)
     for _, city_obj in cities.items():
-         if city_obj.id == city_id:
-             return jsonify(city_obj.to_dict())
+        if city_obj.id == city_id:
+            return jsonify(city_obj.to_dict())
     return abort(404)
 
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
+@app_views.route(
+        '/states/<state_id>/cities',
+        methods=['POST'], strict_slashes=False)
 def create_city(state_id):
     """Creates a new City object."""
     data = request.get_json()
@@ -53,16 +57,13 @@ def create_city(state_id):
 def delete_city(city_id):
     """Deletes a City object by ID."""
     city = storage.get(City, city_id)
-    print(city)
-
     if not city:
-         abort(404)
+        abort(404)
 
     storage.delete(city)
     storage.save()
 
     return make_response(jsonify({}), 200)
-
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)

@@ -6,12 +6,12 @@ from api.v1.views import app_views
 from flask import jsonify, request, abort, make_response
 
 
-@app_views.route('/states',  methods=['GET'], strict_slashes=False)
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
 def show_states():
     """returns count of classes!"""
     states = storage.all(State)
-    state_list = [state_obj.to_dict() for state_id, state_obj in states.items()]
-    return jsonify(state_list)
+    s_list[state_obj.to_dict() for state_id, state_obj in states.items()]
+    return jsonify(s_list)
 
 
 @app_views.route('/states/<state_id>',  methods=['GET'], strict_slashes=False)
@@ -19,8 +19,8 @@ def states_id(state_id):
     """returns count of classes!"""
     states = storage.all(State)
     for _, state_obj in states.items():
-         if state_obj.id == state_id:
-             return jsonify(state_obj.to_dict())
+        if state_obj.id == state_id:
+            return jsonify(state_obj.to_dict())
     return abort(404)
 
 
@@ -42,7 +42,9 @@ def create_state():
     return jsonify(new_state.to_dict()), 201
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route(
+        '/states/<state_id>',
+        methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
     """Deletes a State object by ID."""
     states = storage.all(State)
@@ -59,7 +61,6 @@ def delete_state(state_id):
 
     # If the state does not exist, return a 404 error
     abort(404)
-
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
@@ -83,5 +84,3 @@ def update_state(state_id):
             setattr(state, key, value)
     storage.save()
     return make_response(jsonify(state.to_dict()), 200)
-
-
