@@ -155,7 +155,7 @@ No known bugs at this time.
 
 ## Authors
 Oke Kolawole - [Github](https://github.com/okekolawolesunday009) / [Twitter](https://twitter.com/okekolawoleSun3)  
-Jennifer Huang - [Github](https://github.com/timishot) / [Twitter](https://****)
+Timi - [Github](https://github.com/timishot) / [Twitter](https://****)
 
 
 ## License
