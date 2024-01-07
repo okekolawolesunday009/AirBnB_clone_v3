@@ -10,7 +10,7 @@ from flask import jsonify, request, abort, make_response
 def show_states():
     """returns count of classes!"""
     states = storage.all(State)
-    s_list[state_obj.to_dict() for state_id, state_obj in states.items()]
+    s_list = [state_obj.to_dict() for state_id, state_obj in states.items()]
     return jsonify(s_list)
 
 

@@ -9,14 +9,14 @@ from flask import jsonify, request, abort, make_response
 
 @app_views.route(
         '/states/<state_id>/cities',
-        `methods=['GET'], strict_slashes=False)
+        methods=['GET'], strict_slashes=False)
 def show_states_city(state_id):
     """returns count of classes!"""
     states = storage.all(State)
     for _, state_obj in states.items():
         if state_obj.id == state_id:
             cities = [city.to_dict() for city in state_obj.cities]
-            return jsonify(cities)OA
+            return jsonify(cities)
     return abort(404)
 
 
