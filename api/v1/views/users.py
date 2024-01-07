@@ -21,10 +21,9 @@ def get_users_id(user_id):
     """returns count of classes!"""
     user = storage.all(User)
     for _, user_obj in user.items():
-         if user_obj.id == user_id:
-             return jsonify(user_obj.to_dict())
+        if user_obj.id == user_id:
+            return jsonify(user_obj.to_dict())
     return abort(404)
-
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
@@ -33,13 +32,12 @@ def delete_user_id(user_id):
     user = storage.get(User, user_id)
 
     if not user:
-         abort(404)
+        abort(404)
 
     storage.delete(user)
     storage.save()
 
     return make_response(jsonify({}), 200)
-
 
 
 @app_views.route('/user/<user_id>', methods=['PUT'], strict_slashes=False)
@@ -66,14 +64,14 @@ def update_user_id(user_id):
 
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
-def users_create(state_id):
+def users_create():
     """Creates a new user object."""
     data = request.get_json()
     if not data:
         return jsonify({"error": "Not a JSON"}), 400
 
     if 'email' not in data:
-        return jsonify({"eriror": "Missing email"}), 400
+        return jsonify({"error": "Missing email"}), 400
     if 'password' not in data:
         return jsonify({"error": "Missing password"}), 400
 
