@@ -57,19 +57,26 @@ def delete_state(state_id):
 
 
 
-@app_views.route('/states/<state_id>', methods=['UPDATE'], strict_slashes=False)
-def Update_state(state_id):
-    """UPDATE a State object by ID."""
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+def update_state(state_id):
+    """
+    Updates a State
+    """
+    state = storage.get(State, state_id)
+
+    if not state:
+        abort(404)
+
+    if not request.get_json():
+        abort(400, description="Not a JSON")
+
+    ignore = ['id', 'created_at', 'updated_at']
+
     data = request.get_json()
-
-    if not data:
-        return jsonify({"error": "Not a JSON"}), 400
-
-
-    new_state = State(**data)
-    storage.new(new_state)
+    for key, value in data.items():
+        if key not in ignore:
+            setattr(state, key, value)
     storage.save()
-
-    return jsonify(new_state.to_dict()), 201
+    return make_response(jsonify(state.to_dict()), 200)
 
 
