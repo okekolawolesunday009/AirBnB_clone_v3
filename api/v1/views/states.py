@@ -3,7 +3,7 @@
 from models import storage
 from models.state import State
 from api.v1.views import app_views
-from flask import jsonify, request, abort
+from flask import jsonify, request, abort, make_response
 
 
 @app_views.route('/states',  methods=['GET'], strict_slashes=False)
@@ -45,15 +45,20 @@ def create_state():
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
     """Deletes a State object by ID."""
-    state = storage.get(State, state_id)
+    states = storage.all(State)
+    for _, state_obj in states.items():
+        if state_obj.id == state_id:
+            # Delete associated City objects first
+            for city in state_obj.cities:
+                storage.delete(city)
 
-    if not state:
-        abort(404)
+            # Now, delete the State object
+            storage.delete(state_obj)
+            storage.save()
+            return jsonify({}), 200
 
-    storage.delete(state)
-    storage.save()
-
-    return make_response(jsonify({}), 200)
+    # If the state does not exist, return a 404 error
+    abort(404)
 
 
 
