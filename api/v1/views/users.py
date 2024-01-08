@@ -39,7 +39,7 @@ def delete_user_id(user_id):
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
-def update_user_id(user_id):
+def updae_user_id(user_id):
     """
     Updates a User base on user_id
     """
