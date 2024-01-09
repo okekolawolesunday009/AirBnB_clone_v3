@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""retrieves the ojects in states"""
+"""
+retrieves the objects in users
+"""
 from models import storage
 from models.user import User
 from api.v1.views import app_views
