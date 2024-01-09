@@ -23,7 +23,7 @@ def not_found(error):
 
 
 @app.teardown_appcontext
-def teardown_storage(exception):
+def teardown_storage(exception=None):
     """
     Teardown function to close the storage at the end of the app context.
     """
