@@ -31,6 +31,7 @@ def teardown_storage(exception):
 
 
 if __name__ == '__main__':
+    """where app is run"""
     app_host = os.getenv('HBNB_API_HOST', '0.0.0.0')
     app_port = int(os.getenv('HBNB_API_PORT', '5000'))
     app.run(
